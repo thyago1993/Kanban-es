@@ -15,10 +15,17 @@ function renderizarTarefas() {
 
         let htmlCartao = `<p><strong>${tarefa.descricao}</strong></p>`;
         
+        // Verifica se alguém já assumiu a tarefa
         if (tarefa.responsavel) {
-            htmlCartao += `<div class="responsavel">👥 Grupo: ${tarefa.responsavel}</div>`;
+            htmlCartao += `<div class="responsavel">👥 Equipe: <strong>${tarefa.responsavel}</strong></div>`;
         } else {
-            htmlCartao += `<button class="btn-assumir" onclick="assumirTarefa(${tarefa.id})">Assumir Atividade</button>`;
+            // Se ninguém assumiu, mostra o input e o botão DENTRO do cartão
+            htmlCartao += `
+                <div class="area-assumir">
+                    <input type="text" id="input-grupo-${tarefa.id}" class="input-equipe" placeholder="Nome da sua equipe">
+                    <button class="btn-assumir" onclick="assumirTarefa(${tarefa.id})">Assumir Atividade</button>
+                </div>
+            `;
         }
 
         cartao.innerHTML = htmlCartao;
@@ -26,7 +33,7 @@ function renderizarTarefas() {
     });
 }
 
-// Cria uma nova tarefa (Ação do Professor) - Vai direto para "A Fazer"
+// Cria uma nova tarefa (Ação do Professor)
 function adicionarTarefa() {
     const input = document.getElementById('nova-tarefa');
     const descricao = input.value.trim();
@@ -49,19 +56,21 @@ function adicionarTarefa() {
     renderizarTarefas();
 }
 
-// Associa o grupo à atividade
+// Associa a equipe à atividade específica
 function assumirTarefa(id) {
-    const nomeGrupo = document.getElementById('nome-grupo').value.trim();
+    // Busca a caixa de texto específica deste cartão usando o ID
+    const inputEquipe = document.getElementById(`input-grupo-${id}`);
+    const nomeGrupo = inputEquipe.value.trim();
     
     if (nomeGrupo === '') {
-        alert('Por favor, digite o nome do Grupo no topo da página antes de assumir uma atividade.');
+        alert('Por favor, digite o nome da equipe antes de assumir a atividade.');
         return;
     }
 
     const index = tarefas.findIndex(t => t.id === id);
     if (index !== -1) {
         tarefas[index].responsavel = nomeGrupo;
-        // Quando o grupo assume, a tarefa vai automaticamente para "Em Andamento"
+        // Move automaticamente para "Em Andamento"
         if(tarefas[index].status === 'todo') {
              tarefas[index].status = 'doing';
         }
@@ -75,31 +84,25 @@ function assumirTarefa(id) {
 // ==========================================
 
 function arrastar(event) {
-    // Guarda o ID do cartão que está sendo arrastado
     event.dataTransfer.setData("text", event.target.id);
 }
 
 function permitirSoltar(event) {
-    // Necessário para permitir que o cartão seja solto na área
     event.preventDefault();
 }
 
-// Nova função soltar, agora recebendo o statusDestino com precisão
 function soltar(event, statusDestino) {
     event.preventDefault();
     
-    // Recupera o ID da tarefa arrastada
     const idElemento = event.dataTransfer.getData("text");
     const idTarefa = parseInt(idElemento.split('-')[1]);
     
-    // Atualiza o status da tarefa no array para a coluna correta
     const index = tarefas.findIndex(t => t.id === idTarefa);
     if (index !== -1) {
         tarefas[index].status = statusDestino;
         salvarDados();
     }
 
-    // Atualiza a tela
     renderizarTarefas();
 }
 
