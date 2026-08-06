@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f5f7;
+    color: #333;
+}
+
+header {
+    background-color: #0052cc;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.painel-controle {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+input {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    width: 250px;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #00875a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #006644;
+}
+
+.board {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    align-items: flex-start;
+    overflow-x: auto;
+}
+
+.coluna {
+    flex: 1;
+    background-color: #ebecf0;
+    border-radius: 8px;
+    padding: 15px;
+    min-width: 300px;
+    min-height: 70vh;
+}
+
+.coluna h2 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #172b4d;
+}
+
+.lista-tarefas {
+    min-height: 100%;
+}
+
+.cartao {
+    background-color: white;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    margin-bottom: 10px;
+    cursor: grab;
+}
+
+.cartao:active {
+    cursor: grabbing;
+}
+
+.cartao p {
+    margin-bottom: 10px;
+}
+
+.responsavel {
+    font-size: 0.85rem;
+    color: #5e6c84;
+    font-style: italic;
+}
+
+.btn-assumir {
+    background-color: #0052cc;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    width: 100%;
+}

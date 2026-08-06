@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban - Engenharia de Software</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Quadro Kanban - Engenharia de Software</h1>
+        <div class="painel-controle">
+            <div class="area-professor">
+                <h3>Área do Professor</h3>
+                <input type="text" id="nova-tarefa" placeholder="Descreva a atividade...">
+                <button onclick="adicionarTarefa()">Criar Tarefa</button>
+            </div>
+            <div class="area-aluno">
+                <h3>Identificação do Aluno</h3>
+                <input type="text" id="nome-aluno" placeholder="Digite seu nome para assumir tarefas">
+            </div>
+        </div>
+    </header>
+
+    <main class="board">
+        <!-- Coluna: A Fazer -->
+        <div class="coluna" id="todo" ondrop="soltar(event)" ondragover="permitirSoltar(event)">
+            <h2>A Fazer</h2>
+            <div class="lista-tarefas" id="lista-todo"></div>
+        </div>
+
+        <!-- Coluna: Em Andamento -->
+        <div class="coluna" id="doing" ondrop="soltar(event)" ondragover="permitirSoltar(event)">
+            <h2>Em Andamento</h2>
+            <div class="lista-tarefas" id="lista-doing"></div>
+        </div>
+
+        <!-- Coluna: Concluído -->
+        <div class="coluna" id="done" ondrop="soltar(event)" ondragover="permitirSoltar(event)">
+            <h2>Concluído</h2>
+            <div class="lista-tarefas" id="lista-done"></div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
