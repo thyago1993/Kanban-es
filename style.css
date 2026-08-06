@@ -20,16 +20,15 @@ header {
 .painel-controle {
     display: flex;
     justify-content: center;
-    gap: 40px;
     margin-top: 15px;
-    flex-wrap: wrap;
 }
 
-input {
+header input {
     padding: 8px;
     border: none;
     border-radius: 4px;
     width: 250px;
+    margin-right: 10px;
 }
 
 button {
@@ -94,11 +93,36 @@ button:hover {
     font-size: 0.85rem;
     color: #5e6c84;
     font-style: italic;
+    background-color: #e6fcff;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* Novos estilos para a área de input dentro da tarefa */
+.area-assumir {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.input-equipe {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.85rem;
 }
 
 .btn-assumir {
     background-color: #0052cc;
     font-size: 0.8rem;
-    margin-top: 10px;
     width: 100%;
 }
+
+.btn-assumir:hover {
+    background-color: #0047b3;
+}
+
