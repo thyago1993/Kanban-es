@@ -1,3 +1,19 @@
+Essa é uma excelente melhoria de usabilidade! Colocar o campo de texto diretamente dentro do cartão da tarefa faz muito mais sentido e evita que os alunos esqueçam de preencher o nome no topo da página.
+
+Para fazer isso, nós vamos:
+
+Remover aquele campo de texto do cabeçalho.
+
+Fazer o JavaScript criar uma caixinha de texto individual dentro de cada cartão que ainda não foi assumido.
+
+Ajustar um pouquinho o CSS para que essa nova caixinha fique bonita dentro do cartão.
+
+Copie e substitua o código dos seus três arquivos no GitHub por estes abaixo:
+
+1. index.html (Cabeçalho simplificado)
+Removi a "Área do Aluno" lá de cima, deixando o topo apenas para você (professor) criar as atividades.
+
+HTML
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -15,10 +31,6 @@
                 <input type="text" id="nova-tarefa" placeholder="Descreva a atividade...">
                 <button onclick="adicionarTarefa()">Criar Tarefa</button>
             </div>
-            <div class="area-aluno">
-                <h3>Identificação da Equipe</h3>
-                <input type="text" id="nome-grupo" placeholder="Digite o nome do Grupo">
-            </div>
         </div>
     </header>
 
@@ -35,7 +47,7 @@
             <div class="lista-tarefas" id="lista-doing"></div>
         </div>
 
-        <!-- Coluna: Concluído (Feito) -->
+        <!-- Coluna: Concluído -->
         <div class="coluna" id="done" ondrop="soltar(event, 'done')" ondragover="permitirSoltar(event)">
             <h2>Concluído</h2>
             <div class="lista-tarefas" id="lista-done"></div>
@@ -45,3 +57,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
