@@ -15,15 +15,15 @@ function renderizarTarefas() {
 
         let htmlCartao = `<p><strong>${tarefa.descricao}</strong></p>`;
         
-        // Verifica se alguém já assumiu a tarefa
         if (tarefa.responsavel) {
             htmlCartao += `<div class="responsavel">👥 Equipe: <strong>${tarefa.responsavel}</strong></div>`;
         } else {
-            // Se ninguém assumiu, mostra o input e o botão DENTRO do cartão
+            // A DIV abaixo recebeu 'onmousedown="event.stopPropagation();"' 
+            // Isso impede que o navegador tente arrastar o cartão enquanto o aluno digita
             htmlCartao += `
-                <div class="area-assumir">
-                    <input type="text" id="input-grupo-${tarefa.id}" class="input-equipe" placeholder="Nome da sua equipe">
-                    <button class="btn-assumir" onclick="assumirTarefa(${tarefa.id})">Assumir Atividade</button>
+                <div class="area-assumir" onmousedown="event.stopPropagation();">
+                    <input type="text" id="input-grupo-${tarefa.id}" class="input-equipe" placeholder="Nome da equipe">
+                    <button type="button" class="btn-assumir" onclick="assumirTarefa(${tarefa.id})">Assumir Atividade</button>
                 </div>
             `;
         }
@@ -46,7 +46,7 @@ function adicionarTarefa() {
     const novaTarefa = {
         id: Date.now(),
         descricao: descricao,
-        status: 'todo', // Sempre nasce no "A fazer"
+        status: 'todo', 
         responsavel: null
     };
 
@@ -58,8 +58,14 @@ function adicionarTarefa() {
 
 // Associa a equipe à atividade específica
 function assumirTarefa(id) {
-    // Busca a caixa de texto específica deste cartão usando o ID
     const inputEquipe = document.getElementById(`input-grupo-${id}`);
+    
+    // Trava de segurança extra
+    if (!inputEquipe) {
+        alert("Ocorreu um erro ao ler o campo. Por favor, aperte Ctrl + F5 para atualizar a página.");
+        return;
+    }
+
     const nomeGrupo = inputEquipe.value.trim();
     
     if (nomeGrupo === '') {
@@ -70,10 +76,12 @@ function assumirTarefa(id) {
     const index = tarefas.findIndex(t => t.id === id);
     if (index !== -1) {
         tarefas[index].responsavel = nomeGrupo;
+        
         // Move automaticamente para "Em Andamento"
         if(tarefas[index].status === 'todo') {
              tarefas[index].status = 'doing';
         }
+        
         salvarDados();
         renderizarTarefas();
     }
@@ -95,6 +103,10 @@ function soltar(event, statusDestino) {
     event.preventDefault();
     
     const idElemento = event.dataTransfer.getData("text");
+    
+    // Se o que foi solto não for um cartão, ignora
+    if (!idElemento || !idElemento.includes('tarefa-')) return;
+
     const idTarefa = parseInt(idElemento.split('-')[1]);
     
     const index = tarefas.findIndex(t => t.id === idTarefa);
